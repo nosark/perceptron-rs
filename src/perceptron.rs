@@ -1,5 +1,5 @@
 use ndarray::prelude::*;
-
+#[allow(dead_code)]
 pub struct Perceptron {
     learning_rate: f64,
     epochs: u32,
@@ -18,6 +18,7 @@ pub struct Perceptron {
 // TODO: need to decide if we should use a generic type for the activation activation_function
 // create math module for activation functions and other formulas
 // to speed up fitting, should look at using iter.zip() to iterate over X and y
+#[allow(dead_code)]
 impl Perceptron {
     fn new(mut self, learning_rate: Option<f64>,epochs: Option<u32>, activation_func: fn(f64)->f64) -> Self {
         Perceptron {
@@ -31,7 +32,7 @@ impl Perceptron {
         }
     }
 
-    fn fit(mut self, X: Array1<f64>, mut y: Array1<f64>) {
+    fn fit(mut self,X: Array1<f64>, mut y: Array1<f64>) {
         let mut n_features = X.shape();
         let mut update;
 
@@ -42,8 +43,8 @@ impl Perceptron {
 
         // learn weights
         for _ in 0..self.epochs {
-            for (i, x_i) in X.iter().enumerate() {
-                self.linear_output = self.weights.dot(&x_i) + self.bias;
+            for (i, x_i) in X.indexed_iter() {
+                self.linear_output = self.weights.dot(&X) + self.bias;
                 self.y_hat = (self.activation_function)(self.linear_output); 
                 
                 // Perceptron update rule 
