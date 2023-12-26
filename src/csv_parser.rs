@@ -4,14 +4,13 @@ use std::{error::Error, fs::File};
 #[derive(Debug, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Iris {
-    id: u32,
+    //    id: u32,
     sepal_length_cm: f64,
     sepal_width_cm: f64,
     petal_length_cm: f64,
     petal_width_cm: f64,
-    species: String,
+    //   species: String,
 }
-
 
 // Need to :
 // 1. Read the file
@@ -30,9 +29,7 @@ pub struct Features {
 
 impl Features {
     pub fn new() -> Features {
-        Features {
-            data: Vec::new(),
-        }
+        Features { data: Vec::new() }
     }
 
     pub fn parse_csv(&mut self, filename: &str) -> Result<(), Box<dyn Error>> {
@@ -42,10 +39,10 @@ impl Features {
             match result {
                 Ok(record) => self.data.push(record),
                 Err(e) => println!("Error: {}", e),
-            } 
+            }
         }
 
-       Ok(()) 
+        Ok(())
     }
     pub fn print(&self) {
         for record in &self.data {
