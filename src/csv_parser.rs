@@ -1,3 +1,4 @@
+use std::ops::Index;
 use std::{error::Error, fs::File};
 
 #[allow(dead_code)]
@@ -12,16 +13,20 @@ pub struct Iris {
     //   species: String,
 }
 
-// Need to :
-// 1. Read the file
-// 2. Parse the file
-// 3. Store Records in a vector
-// 5. Handle errors
-// 6. Handle missing values
-// 7. Handle invalid values
-// 8. Handle invalid file
-// 9. Clean Data?
-// 10. Return the vector
+impl Index<usize> for Iris {
+    type Output = f64;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        match index {
+            0 => &self.sepal_length_cm,
+            1 => &self.sepal_width_cm,
+            2 => &self.petal_length_cm,
+            3 => &self.petal_width_cm,
+            _ => panic!("Invalid index"),
+        }
+    }
+}
+
 #[derive(Debug)]
 pub struct Features {
     data: Vec<Iris>,
