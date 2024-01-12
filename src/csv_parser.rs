@@ -1,35 +1,9 @@
-use std::ops::Index;
+use crate::iris::Iris;
 use std::{error::Error, fs::File};
-
-#[allow(dead_code)]
-#[derive(Debug, serde::Deserialize)]
-#[serde(rename_all = "PascalCase")]
-pub struct Iris {
-    //    id: u32,
-    sepal_length_cm: f64,
-    sepal_width_cm: f64,
-    petal_length_cm: f64,
-    petal_width_cm: f64,
-    //   species: String,
-}
-
-impl Index<usize> for Iris {
-    type Output = f64;
-
-    fn index(&self, index: usize) -> &Self::Output {
-        match index {
-            0 => &self.sepal_length_cm,
-            1 => &self.sepal_width_cm,
-            2 => &self.petal_length_cm,
-            3 => &self.petal_width_cm,
-            _ => panic!("Invalid index"),
-        }
-    }
-}
 
 #[derive(Debug)]
 pub struct Features {
-    data: Vec<Iris>,
+    pub data: Vec<Iris>,
 }
 
 impl Features {
