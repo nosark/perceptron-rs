@@ -1,7 +1,6 @@
 use std::ops::Index;
-
 #[allow(dead_code)]
-#[derive(Debug, serde::Deserialize, Copy, Clone)]
+#[derive(Debug, serde::Deserialize, Clone)]
 #[serde(rename_all = "PascalCase")]
 pub struct Iris {
     //    id: u32,
@@ -9,7 +8,7 @@ pub struct Iris {
     sepal_width_cm: f64,
     petal_length_cm: f64,
     petal_width_cm: f64,
-    //   species: String,
+    pub species: String,
 }
 
 impl Index<usize> for Iris {
@@ -29,12 +28,11 @@ impl Index<usize> for Iris {
 impl Iris {
     pub fn new() -> Iris {
         Iris {
-            //            id: 0,
             sepal_length_cm: 0.0,
             sepal_width_cm: 0.0,
             petal_length_cm: 0.0,
             petal_width_cm: 0.0,
-            //            species: String::new(),
+            species: String::new(),
         }
     }
 
