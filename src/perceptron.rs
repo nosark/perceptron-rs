@@ -12,7 +12,7 @@ pub struct Perceptron {
 
 #[allow(dead_code)]
 impl Perceptron {
-    pub fn new(learning_rate: Option<f64>, epochs: Option<u32>, input: Vec<Iris>) -> Self {
+    pub fn new(learning_rate: Option<f64>, epochs: Option<u32>, input: &Vec<Iris>) -> Self {
         Perceptron {
             learning_rate: learning_rate.unwrap_or(0.1),
             epochs: epochs.unwrap_or(10),
@@ -22,11 +22,11 @@ impl Perceptron {
         }
     }
 
-    pub fn fit(&mut self, X: &Vec<Iris>, y: Vec<f64>) -> Self {
+    pub fn fit(&mut self, X: &Vec<Iris>, y: &Vec<f64>) -> Self {
         let mut update;
         let mut errors = 0;
         for _i in 0..self.epochs.clone() {
-            for target in &y {
+            for target in y {
                 // Bias update
                 let y_hat = self.predict(X);
                 update = self.learning_rate * (target - y_hat);

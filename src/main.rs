@@ -25,8 +25,8 @@ fn main() {
         }
     }
 
-    let mut percy = Perceptron::new(None, None, iris_records.data.clone());
-    let percy = percy.fit(&iris_records.data, output.clone());
+    let mut percy = Perceptron::new(None, None, &iris_records.data);
+    let percy = percy.fit(&iris_records.data, &output);
 
     println!("{:?}", percy.error_count);
 }
