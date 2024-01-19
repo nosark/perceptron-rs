@@ -5,9 +5,10 @@ use crate::iris::Iris;
 pub struct Perceptron {
     learning_rate: f64,
     epochs: u32,
-    pub weights: Vec<Vec<f64>>,
+    weights: Vec<Vec<f64>>,
     bias: f64,
-    pub error_count: Vec<u32>,
+    error_count: Vec<u32>,
+    predictions: Vec<Vec<f64>>,
 }
 
 #[allow(dead_code)]
@@ -19,6 +20,7 @@ impl Perceptron {
             weights: vec![vec![1e-4; 4]; input.len()],
             bias: 0.0,
             error_count: Vec::new(),
+            predictions: vec![vec![0.0; input.len()]; epochs.unwrap_or(10) as usize],
         }
     }
 
@@ -72,5 +74,13 @@ impl Perceptron {
                 weights[i][j] = weights[i][j] + (update * X[i][j]);
             }
         }
+    }
+
+    pub fn get_error_count(&self) -> Vec<u32> {
+        self.error_count.clone()
+    }
+
+    pub fn get_weights(&self) -> Vec<Vec<f64>> {
+        self.weights.clone()
     }
 }

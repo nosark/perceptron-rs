@@ -14,19 +14,19 @@ fn main() {
     // test perceptron [x]
     // print results [x]
     // plot results TODO
-
-    let mut output: Vec<f64> = Vec::new();
+    // TODO: add multiclass classification
+    let mut target_output: Vec<f64> = Vec::new();
     for row in iris_records.data.iter() {
         match row.species.as_str() {
-            "Iris-setosa" => output.push(1.0),
-            "Iris-versicolor" => output.push(-1.0),
+            "Iris-setosa" => target_output.push(1.0),
+            "Iris-versicolor" => target_output.push(-1.0),
             "Iris-virginica" => continue,
             _ => println!("Error: {} not found", row.species),
         }
     }
 
     let mut percy = Perceptron::new(None, None, &iris_records.data);
-    let percy = percy.fit(&iris_records.data, &output);
+    let percy = percy.fit(&iris_records.data, &target_output);
 
-    println!("{:?}", percy.error_count);
+    println!("{:?}", percy.get_error_count());
 }
