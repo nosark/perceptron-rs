@@ -1,9 +1,8 @@
-use perceptron::csv_parser::*;
+use perceptron::dataset::*;
 use perceptron::perceptron::*;
-
 fn main() {
-    let mut iris_records = Features::new();
-    let record_parsing = iris_records.parse_csv("./data/Iris.csv");
+    let mut iris_dataset = Dataset::new();
+    let record_parsing = iris_dataset.parse_csv("./data/Iris.csv");
     match record_parsing {
         Ok(_) => println!("Successfully parsed csv file"),
         Err(e) => println!("Error: {}", e),
@@ -15,18 +14,13 @@ fn main() {
     // print results [x]
     // plot results TODO
     // TODO: add multiclass classification
-    let mut target_output: Vec<f64> = Vec::new();
-    for row in iris_records.data.iter() {
-        match row.species.as_str() {
-            "Iris-setosa" => target_output.push(1.0),
-            "Iris-versicolor" => target_output.push(-1.0),
-            "Iris-virginica" => continue,
-            _ => println!("Error: {} not found", row.species),
-        }
-    }
 
-    let mut percy = Perceptron::new(None, None, &iris_records.data);
-    let percy = percy.fit(&iris_records.data, &target_output);
+    iris_dataset.create_random_sample(50);
+    iris_dataset.create_target_from_sample();
+    let rand_sample = iris_dataset.get_random_sample();
+    let target_output = iris_dataset.get_target_output();
+    let mut percy = Perceptron::new(None, Some(10), &rand_sample);
+    let percy = percy.fit(&rand_sample, &target_output);
 
     println!("{:?}", percy.get_error_count());
 }
