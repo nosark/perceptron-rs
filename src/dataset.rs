@@ -30,6 +30,15 @@ impl Dataset {
         Ok(())
     }
 
+    pub fn iris_as_vec(&self) -> Vec<Vec<f64>> {
+        let mut iris_vec: Vec<Vec<f64>> = Vec::new();
+        for iris in &self.data {
+            iris_vec.push(iris.as_vec());
+        }
+
+        iris_vec
+    }
+
     pub fn print(&self) {
         for record in &self.data {
             println!("{:?}", record);

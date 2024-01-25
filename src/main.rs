@@ -22,5 +22,5 @@ fn main() {
     let mut percy = Perceptron::new(None, Some(10), &rand_sample);
     let percy = percy.fit(&rand_sample, &target_output);
 
-    println!("{:?}", percy.get_error_count());
+    println!("errors per epoch: {:?}", percy.get_error_count());
 }

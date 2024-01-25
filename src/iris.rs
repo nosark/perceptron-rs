@@ -39,6 +39,15 @@ impl Iris {
     pub fn len(&self) -> usize {
         4
     }
+
+    pub fn as_vec(&self) -> Vec<f64> {
+        vec![
+            self.sepal_length_cm,
+            self.sepal_width_cm,
+            self.petal_length_cm,
+            self.petal_width_cm,
+        ]
+    }
 }
 
 impl IntoIterator for Iris {
