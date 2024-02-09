@@ -39,6 +39,15 @@ impl Dataset {
         iris_vec
     }
 
+    pub fn iris_as_array<const LEN: usize>(&self) -> [[f32; 4]; LEN] {
+        let mut iris_array: [[f32; 4]; LEN] = [[0.0; 4]; LEN];
+        for (i, iris) in self.data.iter().enumerate() {
+            iris_array[i] = iris.as_array();
+        }
+
+        iris_array
+    }
+
     pub fn print(&self) {
         for record in &self.data {
             println!("{:?}", record);
@@ -68,6 +77,29 @@ impl Dataset {
         }
 
         self.target_output = target_output;
+    }
+
+    pub fn create_target_array_from_sample<const LEN: usize>(&self) -> [f32; LEN] {
+        let mut target_output: [f32; LEN] = [0.0; LEN];
+        for (i, row) in self.random_sample.iter().enumerate() {
+            match row.species.as_str() {
+                "Iris-setosa" => target_output[i] = 1.0,
+                "Iris-versicolor" => target_output[i] = -1.0,
+                "Iris-virginica" => continue,
+                _ => println!("Error: {} not found", row.species),
+            }
+        }
+
+        target_output
+    }
+
+    pub fn create_random_sample_array<const LEN: usize>(&self) -> [[f32; 4]; LEN] {
+        let mut sample_array: [[f32; 4]; LEN] = [[0.0; 4]; LEN];
+        for (i, iris) in self.random_sample.iter().enumerate() {
+            sample_array[i] = iris.as_array();
+        }
+
+        sample_array
     }
 
     pub fn get_random_sample(&self) -> &Vec<Iris> {
