@@ -5,7 +5,7 @@ use std::{error::Error, fs::File};
 pub struct Dataset {
     pub data: Vec<Iris>,
     random_sample: Vec<Iris>,
-    target_output: Vec<f64>,
+    target_output: Vec<f32>,
 }
 
 impl Dataset {
@@ -30,8 +30,8 @@ impl Dataset {
         Ok(())
     }
 
-    pub fn iris_as_vec(&self) -> Vec<Vec<f64>> {
-        let mut iris_vec: Vec<Vec<f64>> = Vec::new();
+    pub fn iris_as_vec(&self) -> Vec<Vec<f32>> {
+        let mut iris_vec: Vec<Vec<f32>> = Vec::new();
         for iris in &self.data {
             iris_vec.push(iris.as_vec());
         }
@@ -57,7 +57,7 @@ impl Dataset {
     }
 
     pub fn create_target_from_sample(&mut self) {
-        let mut target_output: Vec<f64> = Vec::new();
+        let mut target_output: Vec<f32> = Vec::new();
         for row in self.random_sample.iter() {
             match row.species.as_str() {
                 "Iris-setosa" => target_output.push(1.0),
@@ -74,7 +74,7 @@ impl Dataset {
         &self.random_sample
     }
 
-    pub fn get_target_output(&self) -> &Vec<f64> {
+    pub fn get_target_output(&self) -> &Vec<f32> {
         &self.target_output
     }
 }
